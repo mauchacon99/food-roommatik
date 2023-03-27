@@ -3,7 +3,7 @@ import { IconClose } from '@/components/common/Icons';
 import IconBackArrow from '@/components/common/Icons/IconBackArrow';
 import Navbar from '@/components/layouts/Navbar';
 import CardCart from '@/components/product/CardCart';
-import {  addProductToShoppingCart } from '@/store/features/shoppingCart/shoppingCartSlice';
+import {  removeProductToShoppingCart } from '@/store/features/shoppingCart/shoppingCartSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 
 export default function Product() {
@@ -21,7 +21,7 @@ export default function Product() {
 
 	const handleRemoveShoppingCart = (id:string) => {
 		console.log('loooog')
-		// dispatch(removeProductToShoppingCart(id))
+		dispatch(removeProductToShoppingCart(id))
 		// console.log(shoppingCartProduct)
 		// console.log(id)
 	}

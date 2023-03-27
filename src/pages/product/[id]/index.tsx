@@ -1,4 +1,5 @@
-import { useState, ChangeEvent, useId   } from "react";
+import { useState, ChangeEvent   } from "react";
+import { v4 as uuid } from 'uuid';
 import Router from 'next/router'
 import { utils } from "@/tools";
 import Container from "@/components/common/Container";
@@ -25,7 +26,7 @@ export default function Product({ product }: { product: ProductWooCommerce }) {
   const dispatch = useAppDispatch();
 
   const [shoppingCart, setShoppingCart] = useState<ShoppingCart>({
-    id: useId(),
+    id: uuid(),
     price: Number(product.price),
     note:'',
     quantity: 1,

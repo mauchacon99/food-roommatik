@@ -16,7 +16,23 @@ export const shoppingCartSlice = createSlice({
       state: ShoppingCartState,
       action: PayloadAction<ShoppingCart>
     ) => {
+      
       state.shoppingCartProduct.push(action.payload);
+      state.increment++
+      console.log('mauricio')
+    },
+    /**
+     * Add product to shopping cart.
+     *
+     * @param state This state current.
+     */
+    removeProductToShoppingCart: (
+      state: ShoppingCartState,
+      action: PayloadAction<ShoppingCart>
+    ) => {
+      
+      state.shoppingCartProduct.push(action.payload);
+      
     },
     HYDRATE: (state: ShoppingCartState, action: AnyAction) => {
       return { ...state, ...action.payload };
@@ -39,6 +55,6 @@ export const shoppingCartSlice = createSlice({
   },
 });
 
-export const { addProductToShoppingCart } = shoppingCartSlice.actions;
+export const { addProductToShoppingCart, removeProductToShoppingCart } = shoppingCartSlice.actions;
 
 export default shoppingCartSlice.reducer;
