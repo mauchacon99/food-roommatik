@@ -1,5 +1,7 @@
 import SearchField from "@/components/common/SearchField";
-
+/**
+ * Component hero.
+ */
 export default function Hero() {
   return (
     <div className="flex sm:w-full  justify-center mb-4 p-2 ">

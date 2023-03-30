@@ -2,6 +2,9 @@ import Link from "next/link";
 import IconCart from "../common/Icons/IconCart";
 import { IconHome } from "../common/Icons";
 
+/**
+ * Component bottom navbar.
+ */
 export default function BottomNavbar() {
   return (
     <div className="sticky bottom-0 left-0 right-0 ">
@@ -11,7 +14,7 @@ export default function BottomNavbar() {
             <button className="w-full ">
               <Link href="/">
                 <div className="flex flex-col items-center">
-                  <IconHome color="text-accent"/>
+                  <IconHome color="text-accent" />
                   <span className="text-xs text-accent  font-medium">
                     All Home
                   </span>
@@ -40,9 +43,9 @@ export default function BottomNavbar() {
             <button className="w-full ">
               <Link href="/cart">
                 <div className="flex flex-col items-center">
-                  <IconCart color="fill-primary-content"/>
+                  <IconCart color="fill-primary-content" />
                   <span className="text-xs text-primary-content font-medium">
-                   My Cart
+                    My Cart
                   </span>
                 </div>
               </Link>

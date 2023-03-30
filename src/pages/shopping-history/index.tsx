@@ -1,8 +1,11 @@
 import Container from "@/components/common/Container";
-import { IconClose } from "@/components/common/Icons";
 import IconBackArrow from "@/components/common/Icons/IconBackArrow";
 import Navbar from "@/components/layouts/Navbar";
+import Link from "next/link";
 
+/**
+ * Pages checkout purchase.
+ */
 export default function PageCheckout() {
   return (
     <>
@@ -68,7 +71,11 @@ export default function PageCheckout() {
       </div>
       <Container>
         <Navbar
-          iconLeft={<IconBackArrow classes="h-12 h-12" />}
+          iconLeft={
+            <Link href={"/"}>
+              <IconBackArrow classes="h-12 h-12" />
+            </Link>
+          }
           titleCenter="Shopping history"
         />
         <div className="flex w-full flex-col">

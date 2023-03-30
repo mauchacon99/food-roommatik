@@ -1,8 +1,6 @@
-
 export default function Category() {
   return (
     <div className="flex    w-full justify-center items-center space-x-1 py-3 p-2">
-     
       <div className="flex justify-center items-center min-w-12 h-12 bg-accent border-1 border-accent rounded-full p-2">
         <div className="flex border-1">
           <svg
@@ -90,7 +88,7 @@ export default function Category() {
           Cakes{" "}
         </label>
       </div>
-       <div className="flex justify-center items-center min-w-12 h-12 bg-neutral rounded-full p-2">
+      <div className="flex justify-center items-center min-w-12 h-12 bg-neutral rounded-full p-2">
         <div className="flex border-1">
           <svg
             version="1.1"

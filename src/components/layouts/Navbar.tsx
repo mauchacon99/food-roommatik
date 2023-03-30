@@ -37,7 +37,9 @@ export default function Navbar({
             )}
             <div className="navbar-end">
               {iconRightWithButton ? (
-                <button className="btn btn-square btn-ghost">{iconRight}</button>
+                <button className="btn btn-square btn-ghost">
+                  {iconRight}
+                </button>
               ) : (
                 <>{iconRight}</>
               )}

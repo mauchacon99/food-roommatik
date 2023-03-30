@@ -1,10 +1,10 @@
-import { AnyAction, PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ProductState, initialState } from "./initialState";
-import { HYDRATE } from "next-redux-wrapper";
-import { ProductWooCommerce } from "@/models/woocommerce/product";
+import { AnyAction, PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { ProductState, initialState } from './initialState';
+import { HYDRATE } from 'next-redux-wrapper';
+import { ProductWooCommerce } from '@/models/woocommerce/product';
 
 export const productSlicer = createSlice({
-  name: "stateProducts",
+  name: 'stateProducts',
   initialState,
   reducers: {
     /**

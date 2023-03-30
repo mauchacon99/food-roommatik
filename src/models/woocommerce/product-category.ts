@@ -3,12 +3,12 @@
  */
 
 export interface ProductCategoryWooCommerce {
-	/** */
-	id: number;
-	/** */
-	name: string;
-	/** */
-	slug: string;
-	/** */
-	display: string;
+  /** */
+  id: number;
+  /** */
+  name: string;
+  /** */
+  slug: string;
+  /** */
+  display: string;
 }

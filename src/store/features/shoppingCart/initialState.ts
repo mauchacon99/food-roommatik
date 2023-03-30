@@ -1,11 +1,10 @@
-import { ShoppingCart } from "@/models/shopping-cart";
+import { ShoppingCart } from '@/models/shopping-cart';
 
 export interface ShoppingCartState {
   /** Shopping Cart Product information. */
-  shoppingCartProduct: ShoppingCart[]
+  shoppingCartProduct: ShoppingCart[];
 }
 
 export const initialState: ShoppingCartState = {
   shoppingCartProduct: [],
- 
 };

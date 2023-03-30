@@ -1,11 +1,11 @@
-import {ProductWooCommerce } from "./woocommerce/product";
+import { ProductWooCommerce } from './woocommerce/product';
 
 /**
  * Represents the columns to display in the station-widget.
  */
 export interface ShoppingCart {
-   /** */
-  id: string,
+  /** */
+  id: string;
   /** */
   quantity: number;
   /** */
@@ -14,5 +14,4 @@ export interface ShoppingCart {
   note: string;
   /** */
   product: ProductWooCommerce;
-
 }

@@ -1,65 +1,44 @@
 {
-	"root": true,
-	"env": {
-		"browser": true,
-		"es6": true,
-	},
-	"extends": [
-		"plugin:@next/next/recommended",
-		"prettier",
-		"next/core-web-vitals",
-		"./.eslint/main.js"
-	],
-	"overrides": [
-		{
-			"files": [
-				"*.tsx"
-			],
-			"rules": {
-				"jsdoc/require-jsdoc": "off",
-				"jsdoc/require-param": "off",
-				"@typescript-eslint/naming-convention": [
-					"off",
-					{
-						"selector": [
-							"enumMember",
-							"interface"
-						],
-						"format": [
-							"PascalCase"
-						]
-					},
-					{
-						"selector": [
-							"variable",
-							"function",
-							"classMethod"
-						],
-						"leadingUnderscore": "allow",
-						"trailingUnderscore": "allow",
-						"format": [
-							"camelCase"
-						]
-					}
-				]
-			}
-		}
-	],
-	"rules": {
-		"@next/next/no-img-element": "off",
-		"no-unused-vars": [
-			"error",
-			{
-				"argsIgnorePattern": "^_"
-			}
-		],
-		"eqeqeq": [
-			"error",
-			"always"
-		]
-	},
-	"globals": {
-		"React": true,
-		"JSX": true
-	}
+  "root": true,
+  "extends": [
+    "plugin:@next/next/recommended",
+    "next/core-web-vitals",
+    "./.eslint/main.js"
+  ],
+  "overrides": [
+    {
+      "files": ["*.tsx"],
+      "rules": {
+        "jsdoc/require-jsdoc": "off",
+        "jsdoc/require-param": "off",
+        "@typescript-eslint/naming-convention": [
+          "off",
+          {
+            "selector": ["enumMember", "interface"],
+            "format": ["PascalCase"]
+          },
+          {
+            "selector": ["variable", "function", "classMethod"],
+            "leadingUnderscore": "allow",
+            "trailingUnderscore": "allow",
+            "format": ["camelCase"]
+          }
+        ]
+      }
+    }
+  ],
+  "rules": {
+    "@next/next/no-img-element": "off",
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "eqeqeq": ["error", "always"]
+  },
+  "globals": {
+    "React": true,
+    "JSX": true
+  }
 }

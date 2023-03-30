@@ -1,6 +1,6 @@
-import { useState, ChangeEvent   } from "react";
-import { v4 as uuid } from 'uuid';
-import Router from 'next/router'
+import { useState, ChangeEvent } from "react";
+import { v4 as uuid } from "uuid";
+import Router from "next/router";
 import { utils } from "@/tools";
 import Container from "@/components/common/Container";
 import DropdownCart from "@/components/common/DropdownCart";
@@ -9,9 +9,13 @@ import Navbar from "@/components/layouts/Navbar";
 import { ShoppingCart } from "@/models/shopping-cart";
 import { ProductWooCommerce } from "@/models/woocommerce/product";
 import { productService } from "@/services/woocommerce";
-import { useAppDispatch,  } from "@/store/hooks";
-import { addProductToShoppingCart, decrementProductToShoppingCart, incrementProductToShoppingCart} from "@/store/features/shoppingCart/shoppingCartSlice";
- 
+import { useAppDispatch } from "@/store/hooks";
+import {
+  addProductToShoppingCart,
+  decrementProductToShoppingCart,
+  incrementProductToShoppingCart,
+} from "@/store/features/shoppingCart/shoppingCartSlice";
+
 export async function getServerSideProps(context: { params: { id: number } }) {
   const product = await productService.findById(context.params.id);
   return {
@@ -22,32 +26,31 @@ export async function getServerSideProps(context: { params: { id: number } }) {
 }
 
 export default function Product({ product }: { product: ProductWooCommerce }) {
-
   const dispatch = useAppDispatch();
 
   const [shoppingCart, setShoppingCart] = useState<ShoppingCart>({
     id: uuid(),
     price: Number(product.price),
-    note:'',
+    note: "",
     quantity: 1,
     product,
   });
-
 
   const getAmountTotalOrder = (): number => {
     return shoppingCart.price * shoppingCart.quantity;
   };
 
-  const setValueShoppingCart  = ({ target }: ChangeEvent<HTMLTextAreaElement>): void => {
-    
+  const setValueShoppingCart = ({
+    target,
+  }: ChangeEvent<HTMLTextAreaElement>): void => {
     const shopping: ShoppingCart = {
       ...shoppingCart,
       note: target.value,
     };
     setShoppingCart(shopping);
-  }
+  };
 
-  const handleQuantityShoppingCart = (quantity: number) : void => {
+  const handleQuantityShoppingCart = (quantity: number): void => {
     const shopping: ShoppingCart = {
       quantity,
       ...shoppingCart,
@@ -64,10 +67,10 @@ export default function Product({ product }: { product: ProductWooCommerce }) {
       handleQuantityShoppingCart(shoppingCart.quantity--);
   };
 
-  const addShoppingCart = () : Promise<boolean> => {
-    dispatch(addProductToShoppingCart(shoppingCart))
-     return Router.push('/')
-  }
+  const addShoppingCart = (): Promise<boolean> => {
+    dispatch(addProductToShoppingCart(shoppingCart));
+    return Router.push("/");
+  };
 
   return (
     <>
@@ -87,7 +90,10 @@ export default function Product({ product }: { product: ProductWooCommerce }) {
             />
           </div>
           <div className="flex justify-between items-end my-2 font-sans">
-            <span className=" text-xl md:text-3xl "> {utils.formatTextToLowercase(product.name)} </span>
+            <span className=" text-xl md:text-3xl ">
+              {" "}
+              {utils.formatTextToLowercase(product.name)}{" "}
+            </span>
             <div>
               <span className="font-extrabold	text-sm"> $ </span>{" "}
               <span className=" font-bold text-2xl"> {product.price} </span>
@@ -152,7 +158,7 @@ export default function Product({ product }: { product: ProductWooCommerce }) {
             </h3>
 
             <textarea
-            name="note"
+              name="note"
               className="textarea textarea-bordered textarea-xs h-4 mb-2 text-sm  md:text-base w-full  "
               onChange={(event) => setValueShoppingCart(event)}
               placeholder="Write the instructions you need "
@@ -186,8 +192,11 @@ export default function Product({ product }: { product: ProductWooCommerce }) {
                 +{" "}
               </button>
             </div>
-            <button onClick={() => addShoppingCart()} className="flex justify-around ml-2 w-full h-12 bg-primary text-primary-content rounded-full items-center drop-shadow-lg">
-              <span  className="font-medium md:text-2xl text-lg">
+            <button
+              onClick={() => addShoppingCart()}
+              className="flex justify-around ml-2 w-full h-12 bg-primary text-primary-content rounded-full items-center drop-shadow-lg"
+            >
+              <span className="font-medium md:text-2xl text-lg">
                 {" "}
                 Add to my order{" "}
               </span>

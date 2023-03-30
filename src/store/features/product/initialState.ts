@@ -1,4 +1,4 @@
-import { ProductWooCommerce } from "@/models/woocommerce/product";
+import { ProductWooCommerce } from '@/models/woocommerce/product';
 
 export interface ProductState {
   /** Product information. */

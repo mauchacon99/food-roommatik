@@ -1,6 +1,6 @@
 import {
-	ProductService,
-	CategoryService,
+  ProductService,
+  CategoryService,
 } from '@/services/woocommerce/product';
 
 export const productService = new ProductService();

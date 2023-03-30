@@ -1,11 +1,16 @@
 import Link from "next/link";
 import { utils } from "@/tools";
 import { ProductWooCommerce } from "@/models/woocommerce/product";
-
+/**
+ * Represents the pros of this component.
+ */
 interface IProps {
+  /** Represents product woo-commerce*/
   product: ProductWooCommerce;
 }
-
+/**
+ * Card used on the shopping cart page.
+ */
 export default function CardProduct({ product }: IProps) {
   return (
     <>
