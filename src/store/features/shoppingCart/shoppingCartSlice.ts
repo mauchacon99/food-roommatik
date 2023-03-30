@@ -2,6 +2,7 @@ import { ShoppingCart } from '@/models/shopping-cart';
 import { AnyAction, PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ShoppingCartState, initialState } from "./initialState";
 import { HYDRATE } from "next-redux-wrapper";
+import { original } from 'immer'
 
 export const shoppingCartSlice = createSlice({
   name: "stateShoppingCart",
@@ -16,10 +17,29 @@ export const shoppingCartSlice = createSlice({
       state: ShoppingCartState,
       action: PayloadAction<ShoppingCart>
     ) => {
-      
       state.shoppingCartProduct.push(action.payload);
-      state.increment++
-      console.log('mauricio')
+    },
+    /**
+     * Add product to shopping cart.
+     *
+     * @param state This state current.
+     */
+    incrementProductToShoppingCart: (
+      state: ShoppingCartState,
+      action: PayloadAction<string>
+    ) => {
+      state.shoppingCartProduct.map(product => product.id == action.payload ? {...product, quantity:product.quantity++} : product);
+    },
+    /**
+     * Add product to shopping cart.
+     *
+     * @param state This state current.
+     */
+    decrementProductToShoppingCart: (
+      state: ShoppingCartState,
+      action: PayloadAction<string>
+    ) => {
+      state.shoppingCartProduct.map(product => product.id == action.payload ? {...product, quantity:product.quantity--} : product);
     },
     /**
      * Add product to shopping cart.
@@ -30,9 +50,7 @@ export const shoppingCartSlice = createSlice({
       state: ShoppingCartState,
       action: PayloadAction<ShoppingCart>
     ) => {
-      
-      state.shoppingCartProduct.push(action.payload);
-      
+      state.shoppingCartProduct = state.shoppingCartProduct.filter(product => product.id !== action.payload.id);
     },
     HYDRATE: (state: ShoppingCartState, action: AnyAction) => {
       return { ...state, ...action.payload };
@@ -49,12 +67,12 @@ export const shoppingCartSlice = createSlice({
     [HYDRATE]: (state, action) => {
       return {
         ...state,
-        ...action.payload.product,
+        ...action.payload,
       };
     },
   },
 });
 
-export const { addProductToShoppingCart, removeProductToShoppingCart } = shoppingCartSlice.actions;
+export const { removeAllProductsToShoppingCart, addProductToShoppingCart, incrementProductToShoppingCart, decrementProductToShoppingCart, removeProductToShoppingCart} = shoppingCartSlice.actions;
 
 export default shoppingCartSlice.reducer;

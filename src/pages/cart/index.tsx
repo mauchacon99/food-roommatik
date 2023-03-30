@@ -3,8 +3,10 @@ import { IconClose } from '@/components/common/Icons';
 import IconBackArrow from '@/components/common/Icons/IconBackArrow';
 import Navbar from '@/components/layouts/Navbar';
 import CardCart from '@/components/product/CardCart';
-import {  removeProductToShoppingCart } from '@/store/features/shoppingCart/shoppingCartSlice';
+import { ShoppingCart } from '@/models/shopping-cart';
+import { removeAllProductsToShoppingCart, removeProductToShoppingCart } from '@/store/features/shoppingCart/shoppingCartSlice';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import Link from 'next/link';
 
 export default function Product() {
     const dispatch = useAppDispatch();
@@ -13,29 +15,32 @@ export default function Product() {
 	const getFullPurchaseAmount = () :number  => {
 		let totalAmount : number = 0;
 		console.log(shoppingCartProduct)
-		shoppingCartProduct.forEach(product => {
+		shoppingCartProduct.forEach((product:ShoppingCart)  => {
 			totalAmount += product.price * product.quantity;
 		});
 		return totalAmount;
 	} 
 
-	const handleRemoveShoppingCart = (id:string) => {
-		console.log('loooog')
-		dispatch(removeProductToShoppingCart(id))
-		// console.log(shoppingCartProduct)
-		// console.log(id)
+	const handleRemoveShoppingCart = (product: ShoppingCart) => {
+	 
+		dispatch(removeProductToShoppingCart(product))
+		 
 	}
+	 
 	return (
 		<>
 			<Container>
 				<Navbar
-					iconRight={<IconClose classes="h-5 h-5" color="fill-neutral-content" />}
-					iconLeft={<IconBackArrow classes="h-12 h-12"/> }
-					titleCenter="SummaryO rder"
+					iconLeft={
+						<Link href={'/'}>
+							<IconBackArrow classes="h-12 h-12"/> 
+						</Link>
+					}
+					titleCenter="Summary Order"
 				/>
 					<div className="grid gap-3 w-full">
 						{
-							shoppingCartProduct.map(product => (
+							shoppingCartProduct.map((product:ShoppingCart)  => (
 								<CardCart product={product} key={product.id} callbackRemoveShoppingCart={handleRemoveShoppingCart}/>
 							))
 						}
@@ -51,9 +56,9 @@ export default function Product() {
 							<div className="text-xl  font-bold">$ {getFullPurchaseAmount()}</div>
 						</div>
 						<div className="p-2 h-16 flex w-full">
-							<div className="flex w-full transition delay-150 duration-300 ease-in-out rounded-full justify-center items-center bg-primary text-primary-content font-medium text-lg h-12 p-1">
+							<Link href={'/payment'} className="flex w-full transition delay-150 duration-300 ease-in-out rounded-full justify-center items-center bg-primary text-primary-content font-medium text-lg h-12 p-1">
 								Got to Checkout
-							</div>
+							</Link>
 						</div>
 					</div>
 				</div>

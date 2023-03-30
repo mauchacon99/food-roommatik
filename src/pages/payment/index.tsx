@@ -1,8 +1,8 @@
-"use client";
 import Container from "@/components/common/Container";
 import IconBackArrow from "@/components/common/Icons/IconBackArrow";
 import IconClose from "@/components/common/Icons/IconClose";
 import Navbar from '@/components/layouts/Navbar';
+import Link from "next/link";
  
 
 
@@ -91,8 +91,16 @@ export default function PagePayment() {
       </div>
       <Container>
           <Navbar
-            iconRight={<IconBackArrow classes="h-12 h-12"/>}
-            iconLeft={<IconClose classes="h-5 h-5" color="fill-neutral-content" />}
+            iconLeft={
+              <Link href={'/cart'}>
+                <IconBackArrow classes="h-12 h-12"/>
+              </Link>
+            }
+            iconRight={
+              <Link href={'/'}>
+                <IconClose classes="h-5 h-5" color="fill-neutral-content" />
+              </Link>
+            }
             titleCenter="Payment Methods"
           />
             <div className="mt-6 flex flex-col">
@@ -104,8 +112,6 @@ export default function PagePayment() {
                 You will be charged until you review this order on next pages.
               </p>
             </div>
-            
-             
             <div className="flex w-full flex-col space-y-2 p-3">
               {/* Card */}
               <div className="flex w-full shadow-md bg-base-200 rounded-3xl items-center px-3 py-4 border border-primary">
@@ -313,35 +319,17 @@ export default function PagePayment() {
                   </div>
                 </div>
               </div>
-              <div className="flex w-full shadow-md bg-base-200 rounded-3xl items-center px-3 py-4">
-                <div id="card-form" />
-                <form name="datos">
-                    <input type="hidden" id="token"></input>
-                    <input type="hidden" id="errorCode"></input>
-                </form>
-              </div>
             </div>
       </Container>
-      <form name="from" action="https://sis-t.redsys.es:25443/sis/realizarPago" method="POST">
-        <input type="hidden" name="Ds_SignatureVersion" value="HMAC_SHA256_V1"/>
-        <input type="hidden" name="Ds_MerchantParameters" value="
-								eyJEU19NRVJDSEFOVF9BTU9VTlQiOiAiMTQ1IiwiRFNfTUVSQ0hBTlRfQ1VSUkVOQ1kiOiAiOTc4IiwiRFNfTUVSQ0hBTlRfTUVSQ0hBTlRDT0RFIjogIjk5OTAwODg4MSIsIkRTX01FUkNIQU5UX01FUkNIQU5UVVJMIjogImh0dHA6Ly93d3cucHJ1ZWJhLmNvbS91cmxOb3RpZmljYWNpb24ucGhwIiwiRFNfTUVSQ0hBTlRfT1JERVIiOiAiMTQ0NjA2ODU4MSIsIkRTX01FUkNIQU5UX1RFUk1JTkFMIjogIjEiLCJEU19NRVJDSEFOVF9UUkFOU0FDVElPTlRZUEUiOiAiMCIsIkRTX01FUkNIQU5UX1VSTEtPIjogImh0dHA6Ly93d3cucHJ1ZWJhLmNvbS91cmxLTy5waHAiLCJEU19NRVJDSEFOVF9VUkxPSyI6ICJodHRwOi8vd3d3LnBydWViYS5jb20vdXJsT0sucGhwIn0=
-							"/>
-        <input type="hidden" name="Ds_Signature" value="PqV2+SF6asdasMjXasKJRTh3UIYya1hmU/igHkzhC+R="/>	
-        <input type="hidden" name="Ds_MERCHANT_URLKO" value="PqV2+SF6asdasMjXasKJRTh3UIYya1hmU/igHkzhC+R="/>	
-        
-        
-        
-        <button type="submit">submit</button>
-      </form>
       <div className="sticky bottom-0 left-0 right-0 z-40 shadow-xl ">
         <div className="flex w-full justify-center bg-base-200 p-2  shadow ">
           <div className=" flex w-full items-center justify-center">
-            <div className="flex w-full lg:w-3/6 transition delay-150 duration-300 ease-in-out rounded-full justify-center items-center text-primary-content bg-primary font-medium text-lg h-12 p-1">
+
+            <Link href={'/checkout'} className="flex w-full lg:w-3/6 transition delay-150 duration-300 ease-in-out rounded-full justify-center items-center text-primary-content bg-primary font-medium text-lg h-12 p-1">
               <span className="font-medium  text-lg">
                 Confirm and continue{" "}
               </span>
-            </div>
+            </Link>
           </div>
         </div>
       </div>
