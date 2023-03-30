@@ -10,7 +10,7 @@ import { ShoppingCart } from "@/models/shopping-cart";
 import { ProductWooCommerce } from "@/models/woocommerce/product";
 import { productService } from "@/services/woocommerce";
 import { useAppDispatch,  } from "@/store/hooks";
-import { addProductToShoppingCart } from "@/store/features/shoppingCart/shoppingCartSlice";
+import { addProductToShoppingCart, decrementProductToShoppingCart, incrementProductToShoppingCart} from "@/store/features/shoppingCart/shoppingCartSlice";
  
 export async function getServerSideProps(context: { params: { id: number } }) {
   const product = await productService.findById(context.params.id);

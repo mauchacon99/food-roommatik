@@ -68,10 +68,7 @@ export default function PageCheckout() {
       </div>
       <Container>
         <Navbar
-          iconRight={<IconBackArrow classes="h-12 h-12" />}
-          iconLeft={
-            <IconClose classes="h-5 h-5" color="fill-neutral-content" />
-          }
+          iconLeft={<IconBackArrow classes="h-12 h-12" />}
           titleCenter="Shopping history"
         />
         <div className="flex w-full flex-col">

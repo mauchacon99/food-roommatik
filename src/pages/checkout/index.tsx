@@ -3,14 +3,21 @@ import Container from "@/components/common/Container";
 import { IconClose } from "@/components/common/Icons";
 import IconBackArrow from "@/components/common/Icons/IconBackArrow";
 import Navbar from "@/components/layouts/Navbar";
+import Link from "next/link";
 
 export default function PageCheckout() {
   return (
     <>
       <Container>
           <Navbar
-            iconRight={<IconBackArrow classes="h-12 h-12"/>}
-            iconLeft={<IconClose classes="h-5 h-5" color="fill-neutral-content" />}
+            iconLeft ={<Link href={'/payment'}>
+            <IconBackArrow classes="h-12 h-12"/>
+            </Link>}
+            iconRight={
+              <Link href={'/'}>
+              <IconClose classes="h-5 h-5" color="fill-neutral-content" />
+              </Link>
+            }
             titleCenter="Place order"
           />
           <div className="mb-4">
