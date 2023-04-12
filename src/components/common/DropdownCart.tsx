@@ -1,23 +1,60 @@
-import type { ReactNode } from "react";
+import { useAppSelector } from "@/store/hooks";
 import IconCart from "./Icons/IconCart";
-
+import { ShoppingCart } from "../../models/shopping-cart";
+import { utils } from "@/tools";
+import { fullPurchaseAmountSelector } from "@/store/features/shoppingCart/shoppingCartSlice";
+import Link from "next/link";
 export default function DropdownCart() {
+  const { shoppingCartProduct } = useAppSelector(
+    (state) => state.stateShoppingCart
+  );
+  const getFullPurchaseAmount = useAppSelector((state) =>
+    fullPurchaseAmountSelector(state)
+  );
+
   return (
-    <div className="dropdown dropdown-end">
-      <label tabIndex={0} className="btn btn-square btn-ghost m-1">
+    <div className="dropdown dropdown-end ">
+      <label tabIndex={0}>
         {" "}
-        <IconCart />
+        <button className="btn gap-2">
+          <IconCart />
+          {/* <span className="text-center bg-red-600 rounded-full h-4 w-4 text-white items-center justify-center text-sm">
+            {" "}
+            1{" "}
+          </span> */}
+        </button>
       </label>
       <ul
         tabIndex={0}
-        className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+        className="dropdown-content menu p-3 shadow bg-base-200 rounded-box w-80 md:w-96 z-10"
       >
-        <li>
-          <a>Item 1</a>
-        </li>
-        <li>
-          <a>Item 2</a>
-        </li>
+        {shoppingCartProduct.map((product: ShoppingCart) => (
+          <div className=" flex w-full justify-start mb-2" key={product.id}>
+            <div className="flex justify-items-center items-center mr-2">
+              <img
+                className="h-12 w-12 mask mask-circle  "
+                src={product.product?.images[0].src}
+                alt={product.product?.images[0].alt}
+              />
+            </div>
+            <div className="flex flex-col">
+              <div className="font-medium">
+                {utils.formatTextToLowercase(product.product.name)}
+              </div>
+              <div className="text-sm">
+                ${product.quantity} x {product.price}
+              </div>
+            </div>
+          </div>
+        ))}
+        <div className="flex justify-between w-full  mb-2 border-3 border-primary-content">
+          <span className="font-medium text-lg">Total</span>
+          <span className="font-medium text-lg">${getFullPurchaseAmount}</span>
+        </div>{" "}
+        <Link className="btn  btn-outline w-full gap-2" href={"/cart"}>
+          <IconCart />
+          Got to Cart
+        </Link>
       </ul>
     </div>
   );

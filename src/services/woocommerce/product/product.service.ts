@@ -7,10 +7,13 @@ const path = 'products';
 export class ProductService extends WooCommerce {
   /**
    * Get all products of WooCommerce.
+   *
+   * @param query Query in end-point.
    */
-  async getAll() {
+  async getAll(query : object ={}) {
     try {
       const { data } = await this.api().get(path, {
+        ...query,
         _fields: 'name,slug,description,price,images,id',
         status: 'publish',
       });
@@ -20,8 +23,11 @@ export class ProductService extends WooCommerce {
       console.log(error, 'error');
     }
   }
+
   /**
    * Get all products of WooCommerce.
+   *
+   * @param Id This id product.
    */
   async findById(Id: number) {
     try {

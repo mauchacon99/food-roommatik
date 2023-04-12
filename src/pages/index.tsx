@@ -7,37 +7,59 @@ import Navbar from "@/components/layouts/Navbar";
 import CardProduct from "@/components/product/CardProduct";
 import ContainerProducts from "@/components/product/ContainerProducts";
 import { ProductWooCommerce } from "@/models/woocommerce/product";
-import { productService } from "@/services/woocommerce";
+import { categoryService, productService } from "@/services/woocommerce";
 import { wrapper } from "../store";
-import { setProduct } from "@/store/features/product/productSlice";
+import {
+  setCategorySelected,
+  setProduct,
+} from "@/store/features/product/productSlice";
+import { ProductCategoryWooCommerce } from "@/models/woocommerce/product-category";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import Router from "next/router";
+import DropdownCart from "@/components/common/DropdownCart";
 
 export const getServerSideProps = wrapper.getServerSideProps(
-  ({ getState, dispatch }) =>
+  ({ dispatch }) =>
     async () => {
-      const {
-        stateProducts: { products: productStores },
-      } = getState();
+      const productCategory = await categoryService.getAll();
+      const productRecords = await productService.getAll();
+      dispatch(setProduct(productRecords));
 
-      if (!productStores) {
-        const productStores = await productService.getAll();
-        dispatch(setProduct(productStores));
-      }
-      const {
-        stateProducts: { products: productRecords },
-      } = getState();
       return {
-        props: { products: productRecords },
+        props: { products: productRecords, productCategory },
       };
     }
 );
+export default function Home({
+  products,
+  productCategory,
+}: {
+  products: ProductWooCommerce[];
+  productCategory: ProductCategoryWooCommerce[];
+}) {
+  const dispatch = useAppDispatch();
 
-export default function Home({ products }: { products: ProductWooCommerce[] }) {
+  const categorySelected = useAppSelector(
+    (state) => state.stateProducts.categorySelected
+  );
+  const callbackSelectedCategory = (id: number) => {
+    dispatch(setCategorySelected(id));
+    Router.push(`/?category=${id}`);
+  };
   return (
     <>
       <Container>
-        <Navbar iconLeft={<IconThreeLines />} iconRight={<IconThreeDots />} />
+        <Navbar
+          iconLeft={<IconThreeLines />}
+          iconRight={<DropdownCart />}
+          iconRightWithButton={false}
+        />{" "}
         <Hero />
-        <Category />
+        <Category
+          categorySelected={categorySelected}
+          categories={productCategory}
+          setSelectedCategory={callbackSelectedCategory}
+        />
         {products && (
           <ContainerProducts>
             {products.map((product: ProductWooCommerce) => (

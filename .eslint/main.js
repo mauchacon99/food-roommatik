@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ["./javascript", "./typescript", "eslint:recommended"],
+  extends: ["./javascript", "./typescript"],
 };

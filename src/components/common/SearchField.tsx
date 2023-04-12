@@ -1,6 +1,6 @@
 export default function SearchField() {
   return (
-    <div>
+    <div className="z-0">
       <div className="my-2">
         <label
           htmlFor="default-search"

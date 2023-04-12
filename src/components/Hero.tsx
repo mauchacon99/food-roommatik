@@ -1,6 +1,9 @@
-import SearchField from "@/components/common/SearchField";
+// import SearchField from "@/components/common/SearchField";
+
 /**
- * Component hero.
+ * Component heros.
+ *
+ * @returns This components.
  */
 export default function Hero() {
   return (
@@ -13,7 +16,7 @@ export default function Hero() {
             <strong>Food </strong> Around You{" "}
           </p>
 
-          <SearchField />
+          {/* <SearchField /> */}
         </div>
       </div>
     </div>

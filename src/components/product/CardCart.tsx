@@ -7,9 +7,14 @@ import {
 } from "@/store/features/shoppingCart/shoppingCartSlice";
 import { useAppDispatch } from "@/store/hooks";
 
+/**
+ * Represents this props component.
+ */
 interface IProps {
+  /** Represent value product. */
   product: ShoppingCart;
-  callbackRemoveShoppingCart: (product: ShoppingCart) => void;
+  /** Prop callback functions for remove product. */
+  callbackRemoveShoppingCart: (_product: ShoppingCart) => void;
 }
 export default function CardCart({
   product,
@@ -18,6 +23,7 @@ export default function CardCart({
   const dispatch = useAppDispatch();
   return (
     <>
+      {/* eslint-disable-next-line max-len */}
       <div className="shadow-md relative flex w-full justify-items-between   bg-base-200 rounded-3xl p-2 h-32  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-104 hover:bg-base-200 duration-300">
         <div className="absolute bottom-0 right-0 top-0 p-4">
           <button onClick={() => callbackRemoveShoppingCart(product)}>
@@ -49,25 +55,29 @@ export default function CardCart({
               $ {product.price * product.quantity}{" "}
             </h4>
             <div className="flex items-center">
+              {/* eslint-disable-next-line max-len */}
               <button
+                className="hover:bg-primary text-neutral-content bg-neutral rounded-l-full hover:text-primary-content lg:h-8 lg:w-12 h-8  w-9 text-2xl text-bold text-center font-bold"
                 disabled={product.quantity < 2}
                 onClickCapture={() =>
                   dispatch(decrementProductToShoppingCart(product.id))
                 }
-                className="hover:bg-primary text-neutral-content bg-neutral rounded-l-full hover:text-primary-content lg:h-8 lg:w-12 h-8  w-9 text-2xl text-bold text-center font-bold"
               >
                 {" "}
                 -{" "}
               </button>
+              {/* eslint-disable-next-line max-len */}
               <div className="text-neutral-content bg-neutral lg:text-text-lg text-lg  text-semibold h-8  w-12 font-medium lg:font-bold text-center">
                 {" "}
                 {product.quantity}
               </div>
+
+              {/* eslint-disable-next-line max-len */}
               <button
+                className="hover:bg-primary text-neutral-content bg-neutral rounded-r-full hover:text-primary-content lg:h-8 lg:w-12 h-8 w-9 text-2xl text-bold text-center font-bold"
                 onClickCapture={() =>
                   dispatch(incrementProductToShoppingCart(product.id))
                 }
-                className="hover:bg-primary text-neutral-content bg-neutral rounded-r-full hover:text-primary-content lg:h-8 lg:w-12 h-8 w-9 text-2xl text-bold text-center font-bold"
               >
                 {" "}
                 +{" "}

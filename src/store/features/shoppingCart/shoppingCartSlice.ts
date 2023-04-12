@@ -1,10 +1,12 @@
-import useAppSelector from '@/store/hooks';
 import { ShoppingCart } from '@/models/shopping-cart';
 import { AnyAction, PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { ShoppingCartState, initialState } from './initialState';
 import { HYDRATE } from 'next-redux-wrapper';
-import { original } from 'immer';
+import { AppState } from '@/store';
 
+/**
+ * Slice of shoppingCart.
+ */
 export const shoppingCartSlice = createSlice({
   name: 'stateShoppingCart',
   initialState,
@@ -13,6 +15,7 @@ export const shoppingCartSlice = createSlice({
      * Add product to shopping cart.
      *
      * @param state This state current.
+     * @param action This value action.
      */
     addProductToShoppingCart: (
       state: ShoppingCartState,
@@ -24,13 +27,14 @@ export const shoppingCartSlice = createSlice({
      * Add product to shopping cart.
      *
      * @param state This state current.
+     * @param action This value action.
      */
     incrementProductToShoppingCart: (
       state: ShoppingCartState,
       action: PayloadAction<string>
     ) => {
       state.shoppingCartProduct.map((product) =>
-        product.id == action.payload
+        product.id === action.payload
           ? { ...product, quantity: product.quantity++ }
           : product
       );
@@ -39,13 +43,14 @@ export const shoppingCartSlice = createSlice({
      * Add product to shopping cart.
      *
      * @param state This state current.
+     * @param action This value action.
      */
     decrementProductToShoppingCart: (
       state: ShoppingCartState,
       action: PayloadAction<string>
     ) => {
       state.shoppingCartProduct.map((product) =>
-        product.id == action.payload
+        product.id === action.payload
           ? { ...product, quantity: product.quantity-- }
           : product
       );
@@ -54,6 +59,7 @@ export const shoppingCartSlice = createSlice({
      * Add product to shopping cart.
      *
      * @param state This state current.
+     * @param action This value action.
      */
     removeProductToShoppingCart: (
       state: ShoppingCartState,
@@ -63,6 +69,13 @@ export const shoppingCartSlice = createSlice({
         (product) => product.id !== action.payload.id
       );
     },
+    /**
+     * Hydrate state.
+     *
+     * @param state This state current.
+     * @param action This value action.
+     * @returns Object values.
+     */
     HYDRATE: (state: ShoppingCartState, action: AnyAction) => {
       return { ...state, ...action.payload };
     },
@@ -78,22 +91,27 @@ export const shoppingCartSlice = createSlice({
     [HYDRATE]: (state, action) => {
       return {
         ...state,
-        ...action.payload,
+        ...action.payload.stateShoppingCart,
       };
     },
   },
 });
 
-export const fullPurchaseAmountSelector = () =>
-  useAppSelector((state) => {
-    let totalAmount: number = 0;
-    state.stateShoppingCart.shoppingCartProduct.forEach(
-      (product: ShoppingCart) => {
-        totalAmount += product.price * product.quantity;
-      }
-    );
-    return totalAmount;
-  });
+/**
+ * Calculate the total amount of the products added to the cart.
+ *
+ * @param state State app.
+ * @returns Value amount total purchase.
+ */
+export const fullPurchaseAmountSelector = (state: AppState) => {
+  let totalAmount = 0;
+  state.stateShoppingCart.shoppingCartProduct.forEach(
+    (product: ShoppingCart) => {
+      totalAmount += product.price * product.quantity;
+    }
+  );
+  return totalAmount;
+};
 
 export const {
   addProductToShoppingCart,

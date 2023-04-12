@@ -7,21 +7,34 @@
   ],
   "overrides": [
     {
-      "files": ["*.tsx"],
+      "files": [
+        "*.tsx"
+      ],
       "rules": {
         "jsdoc/require-jsdoc": "off",
         "jsdoc/require-param": "off",
         "@typescript-eslint/naming-convention": [
           "off",
           {
-            "selector": ["enumMember", "interface"],
-            "format": ["PascalCase"]
+            "selector": [
+              "enumMember",
+              "interface"
+            ],
+            "format": [
+              "PascalCase"
+            ]
           },
           {
-            "selector": ["variable", "function", "classMethod"],
+            "selector": [
+              "variable",
+              "function",
+              "classMethod"
+            ],
             "leadingUnderscore": "allow",
             "trailingUnderscore": "allow",
-            "format": ["camelCase"]
+            "format": [
+              "camelCase"
+            ]
           }
         ]
       }
@@ -35,7 +48,23 @@
         "argsIgnorePattern": "^_"
       }
     ],
-    "eqeqeq": ["error", "always"]
+    "class-methods-use-this": [
+      "off",
+      {
+        "enforceForClassFields": true
+      }
+    ],
+    "import/extensions": [
+      "off",
+      "never",
+      {
+        "ignorePackages": true
+      }
+    ],
+    "eqeqeq": [
+      "error",
+      "always"
+    ]
   },
   "globals": {
     "React": true,

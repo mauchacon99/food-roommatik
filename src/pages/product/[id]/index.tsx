@@ -1,6 +1,5 @@
 import { useState, ChangeEvent } from "react";
 import { v4 as uuid } from "uuid";
-import Router from "next/router";
 import { utils } from "@/tools";
 import Container from "@/components/common/Container";
 import DropdownCart from "@/components/common/DropdownCart";
@@ -10,11 +9,9 @@ import { ShoppingCart } from "@/models/shopping-cart";
 import { ProductWooCommerce } from "@/models/woocommerce/product";
 import { productService } from "@/services/woocommerce";
 import { useAppDispatch } from "@/store/hooks";
-import {
-  addProductToShoppingCart,
-  decrementProductToShoppingCart,
-  incrementProductToShoppingCart,
-} from "@/store/features/shoppingCart/shoppingCartSlice";
+import { addProductToShoppingCart } from "@/store/features/shoppingCart/shoppingCartSlice";
+import ReactHtmlParser from "react-html-parser";
+import { useRouter } from "next/navigation";
 
 export async function getServerSideProps(context: { params: { id: number } }) {
   const product = await productService.findById(context.params.id);
@@ -27,6 +24,7 @@ export async function getServerSideProps(context: { params: { id: number } }) {
 
 export default function Product({ product }: { product: ProductWooCommerce }) {
   const dispatch = useAppDispatch();
+  const { push } = useRouter();
 
   const [shoppingCart, setShoppingCart] = useState<ShoppingCart>({
     id: uuid(),
@@ -67,9 +65,9 @@ export default function Product({ product }: { product: ProductWooCommerce }) {
       handleQuantityShoppingCart(shoppingCart.quantity--);
   };
 
-  const addShoppingCart = (): Promise<boolean> => {
+  const addShoppingCart = (): void => {
     dispatch(addProductToShoppingCart(shoppingCart));
-    return Router.push("/");
+    push("/");
   };
 
   return (
@@ -85,8 +83,8 @@ export default function Product({ product }: { product: ProductWooCommerce }) {
           <div className="flex justify-center items-center w-full">
             <img
               className="h-48 w-48 rounded-full"
-              alt={product.images[0].alt}
-              src={product.images[0].src}
+              alt={product.images[0]?.alt}
+              src={product.images[0]?.src}
             />
           </div>
           <div className="flex justify-between items-end my-2 font-sans">
@@ -99,10 +97,11 @@ export default function Product({ product }: { product: ProductWooCommerce }) {
               <span className=" font-bold text-2xl"> {product.price} </span>
             </div>
           </div>
-          <p className="text-sm  md:text-lg text-justify text-gray-400">
-            {product.description}
+          <div className="text-sm  md:text-lg text-justify text-gray-400">
+            {ReactHtmlParser(product.description)}
+
             <span className="sm:text-xs text-base font-bold "> More</span>
-          </p>
+          </div>
           {/* <div className="section-categories-product space-y-3 pt-2 mb-4">
             <div>
               <span className="text-sm md:text-lg text-base-content md:mb-1">

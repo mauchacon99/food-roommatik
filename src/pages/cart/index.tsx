@@ -7,15 +7,18 @@ import {
   fullPurchaseAmountSelector,
   removeProductToShoppingCart,
 } from "@/store/features/shoppingCart/shoppingCartSlice";
-import useAppSelector, { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import Link from "next/link";
 
 export default function Product() {
   const dispatch = useAppDispatch();
+
   const { shoppingCartProduct } = useAppSelector(
     (state) => state.stateShoppingCart
   );
-  const getFullPurchaseAmount = fullPurchaseAmountSelector();
+  const getFullPurchaseAmount = useAppSelector((state) =>
+    fullPurchaseAmountSelector(state)
+  );
 
   const handleRemoveShoppingCart = (product: ShoppingCart) => {
     dispatch(removeProductToShoppingCart(product));

@@ -1,10 +1,13 @@
+import Link from "next/link";
 import Container from "@/components/common/Container";
 import IconBackArrow from "@/components/common/Icons/IconBackArrow";
+import BottomNavbar from "@/components/layouts/BottomNavbar";
 import Navbar from "@/components/layouts/Navbar";
-import Link from "next/link";
 
 /**
  * Pages checkout purchase.
+ *
+ * @returns This pages.
  */
 export default function PageCheckout() {
   return (
@@ -272,6 +275,7 @@ export default function PageCheckout() {
           </div>
         </div>
       </Container>
+      <BottomNavbar />
     </>
   );
 }

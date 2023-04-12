@@ -3,8 +3,11 @@ import { AppDispatch, AppState } from './index';
 
 /**
  * Hook selector used in app.
+ *
+ * @returns Hook selector.
  */
-export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppDispatch = (): AppDispatch => useDispatch<AppDispatch>();
+
 /**
  * Hook selector used in app.
  */

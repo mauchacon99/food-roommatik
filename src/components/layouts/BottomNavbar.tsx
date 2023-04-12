@@ -4,6 +4,8 @@ import { IconHome } from "../common/Icons";
 
 /**
  * Component bottom navbar.
+ *
+ * @returns This component.
  */
 export default function BottomNavbar() {
   return (
@@ -51,7 +53,7 @@ export default function BottomNavbar() {
               </Link>
             </button>
             <button className="w-full ">
-              <Link href="/payment">
+              <Link href="/shopping-history">
                 <div className="flex flex-col items-center">
                   <svg
                     width="800px"

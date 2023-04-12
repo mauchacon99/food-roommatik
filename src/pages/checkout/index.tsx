@@ -1,27 +1,28 @@
-import Container from "@/components/common/Container";
-import { IconClose } from "@/components/common/Icons";
-import IconBackArrow from "@/components/common/Icons/IconBackArrow";
-import Navbar from "@/components/layouts/Navbar";
-import { fullPurchaseAmountSelector } from "@/store/features/shoppingCart/shoppingCartSlice";
-import Link from "next/link";
+import Link from 'next/link';
+import Container from '@/components/common/Container';
+import { IconClose } from '@/components/common/Icons';
+import IconBackArrow from '@/components/common/Icons/IconBackArrow';
+import Navbar from '@/components/layouts/Navbar';
+import { fullPurchaseAmountSelector } from '@/store/features/shoppingCart/shoppingCartSlice';
+import { useAppSelector } from '@/store/hooks';
 
 export default function PageCheckout() {
-  const getFullPurchaseAmount = fullPurchaseAmountSelector();
+  const getFullPurchaseAmount = useAppSelector(fullPurchaseAmountSelector);
 
   return (
     <>
       <Container>
         <Navbar
-          iconLeft={
+          iconLeft={(
             <Link href={"/payment"}>
               <IconBackArrow classes="h-12 h-12" />
             </Link>
-          }
-          iconRight={
+          )}
+          iconRight={(
             <Link href={"/"}>
               <IconClose classes="h-5 h-5" color="fill-neutral-content" />
             </Link>
-          }
+          )}
           titleCenter="Place order"
         />
         <div className="mb-4">
@@ -90,7 +91,8 @@ export default function PageCheckout() {
           <div className="w-full lg:w-3/6  flex  p-2 h-16">
             <div className="flex w-full  transition delay-150 duration-300 ease-in-out rounded-full justify-center items-center text-primary-content bg-primary font-medium text-lg h-12 p-1">
               <span className="font-medium  text-xl">
-                Pay Purchase $ {getFullPurchaseAmount}{" "}
+                Pay Purchase $ {getFullPurchaseAmount}
+{" "}
               </span>
             </div>
           </div>
