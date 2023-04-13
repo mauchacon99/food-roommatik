@@ -66,7 +66,7 @@ export const productSlicer = createSlice({
     [HYDRATE]: (state, action) => {
       return {
         ...state,
-        ...action.payload.stateProducts,
+        ...action.payload,
       };
     },
   },

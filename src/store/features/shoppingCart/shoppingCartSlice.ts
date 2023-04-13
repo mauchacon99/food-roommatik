@@ -91,7 +91,7 @@ export const shoppingCartSlice = createSlice({
     [HYDRATE]: (state, action) => {
       return {
         ...state,
-        ...action.payload.stateShoppingCart,
+        ...action.payload,
       };
     },
   },

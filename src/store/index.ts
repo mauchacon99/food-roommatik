@@ -1,7 +1,17 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import {
+  configureStore,
+  ThunkAction,
+  Action,
+  combineReducers,
+} from '@reduxjs/toolkit';
 import { productSlicer } from './features/product/productSlice';
 import { createWrapper } from 'next-redux-wrapper';
 import { shoppingCartSlice } from './features/shoppingCart/shoppingCartSlice';
+
+const rootReducer = combineReducers({
+  [productSlicer.name]: productSlicer.reducer,
+  [shoppingCartSlice.name]: shoppingCartSlice.reducer,
+});
 
 /**
  * Store main.
@@ -10,10 +20,7 @@ import { shoppingCartSlice } from './features/shoppingCart/shoppingCartSlice';
  */
 const makeStore = () =>
   configureStore({
-    reducer: {
-      [productSlicer.name]: productSlicer.reducer,
-      [shoppingCartSlice.name]: shoppingCartSlice.reducer,
-    },
+    reducer: rootReducer,
     devTools: true,
   });
 
