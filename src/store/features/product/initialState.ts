@@ -9,11 +9,19 @@ export interface ProductState {
   categoriesProduct: ProductCategoryWooCommerce[];
 
   /** Category selected filter products. */
-  categorySelected: number | null;
+  categorySelected: {
+    /** Represent value new category selected. */
+    new: number | null;
+    /** Represent value new category selected. */
+    old: number | null;
+  };
 }
 
 export const initialState: ProductState = {
   products: null,
   categoriesProduct: [],
-  categorySelected: null,
+  categorySelected: {
+    new: null,
+    old: null,
+  },
 };

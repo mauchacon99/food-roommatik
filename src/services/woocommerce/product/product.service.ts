@@ -13,9 +13,9 @@ export class ProductService extends WooCommerce {
   async getAll(query : object ={}) {
     try {
       const { data } = await this.api().get(path, {
-        ...query,
         _fields: 'name,slug,description,price,images,id',
         status: 'publish',
+        ...query,
       });
       return data;
     } catch (error) {

@@ -1,7 +1,8 @@
+import { useCallback, useEffect, useState } from "react";
 import Hero from "@/components/Hero";
 import Category from "@/components/common/Category";
 import Container from "@/components/common/Container";
-import { IconThreeDots, IconThreeLines } from "@/components/common/Icons";
+import { IconThreeLines } from "@/components/common/Icons";
 import BottomNavbar from "@/components/layouts/BottomNavbar";
 import Navbar from "@/components/layouts/Navbar";
 import CardProduct from "@/components/product/CardProduct";
@@ -15,37 +16,51 @@ import {
 } from "@/store/features/product/productSlice";
 import { ProductCategoryWooCommerce } from "@/models/woocommerce/product-category";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import Router from "next/router";
 import DropdownCart from "@/components/common/DropdownCart";
+import SkeletonCardProduct from "@/components/common/Skeleton/SkeletonCardProduct";
+import IsEmptyList from "@/components/common/IsEmptyList";
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  ({ dispatch }) =>
-    async () => {
-      const productCategory = await categoryService.getAll();
-      const productRecords = await productService.getAll();
-      dispatch(setProduct(productRecords));
+export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
+  const productCategory = await categoryService.getAll();
 
-      return {
-        props: { products: productRecords, productCategory },
-      };
-    }
-);
+  return {
+    props: { productCategory },
+  };
+});
 export default function Home({
-  products,
   productCategory,
 }: {
-  products: ProductWooCommerce[];
   productCategory: ProductCategoryWooCommerce[];
 }) {
   const dispatch = useAppDispatch();
-
-  const categorySelected = useAppSelector(
-    (state) => state.stateProducts.categorySelected
+  const [loading, setLoading] = useState<boolean>(false);
+  const { categorySelected, products } = useAppSelector(
+    (state) => state.stateProducts
   );
-  const callbackSelectedCategory = (id: number) => {
+  const handleSelectedCategory = (id: number | null) => {
     dispatch(setCategorySelected(id));
-    Router.push(`/?category=${id}`);
   };
+
+  const handleGetProducts = async (category: number | null) => {
+    setLoading(true);
+    const productRecords = await productService.getAll({
+      category,
+    });
+    dispatch(setProduct(productRecords));
+    setLoading(false);
+  };
+
+  const getItemProducts = useCallback(
+    async (category: number | null) => handleGetProducts(category),
+    []
+  );
+
+  useEffect(() => {
+    if (!products || categorySelected.old) {
+      getItemProducts(categorySelected.new);
+    }
+  }, [categorySelected.new]);
+
   return (
     <>
       <Container>
@@ -56,14 +71,36 @@ export default function Home({
         />{" "}
         <Hero />
         <Category
-          categorySelected={categorySelected}
+          categorySelected={categorySelected.new}
           categories={productCategory}
-          setSelectedCategory={callbackSelectedCategory}
+          setSelectedCategory={handleSelectedCategory}
         />
-        {products && (
+        {!loading ? (
+          products?.length ? (
+            <ContainerProducts>
+              {products.map((product: ProductWooCommerce) => (
+                <CardProduct product={product} key={product.id} />
+              ))}
+            </ContainerProducts>
+          ) : (
+            <>
+              <IsEmptyList
+                title="No products found"
+                text="There are no products in this category"
+              >
+                <button
+                  className="btn btn-primary "
+                  onClick={() => dispatch(setCategorySelected(null))}
+                >
+                  All Categories
+                </button>
+              </IsEmptyList>
+            </>
+          )
+        ) : (
           <ContainerProducts>
-            {products.map((product: ProductWooCommerce) => (
-              <CardProduct product={product} key={product.id} />
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((key) => (
+              <SkeletonCardProduct key={key} />
             ))}
           </ContainerProducts>
         )}

@@ -11,9 +11,9 @@ export default function IconBackArrow({
       <svg
         className={`${classes}${color}`}
         style={{
-          "verticalAlign": "middle",
-          "fill": "currentColor",
-          'overflow': "hidden",
+          verticalAlign: "middle",
+          fill: "currentColor",
+          overflow: "hidden",
         }}
         viewBox="0 0 1024 1024"
         version="1.1"

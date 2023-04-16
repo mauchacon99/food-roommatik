@@ -7,6 +7,7 @@ import { fullPurchaseAmountSelector } from '@/store/features/shoppingCart/shoppi
 import { useAppSelector } from '@/store/hooks';
 
 export default function PageCheckout() {
+  
   const getFullPurchaseAmount = useAppSelector(fullPurchaseAmountSelector);
 
   return (

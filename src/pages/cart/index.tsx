@@ -1,5 +1,6 @@
 import Container from "@/components/common/Container";
 import IconBackArrow from "@/components/common/Icons/IconBackArrow";
+import IsEmptyList from "@/components/common/IsEmptyList";
 import Navbar from "@/components/layouts/Navbar";
 import CardCart from "@/components/product/CardCart";
 import { ShoppingCart } from "@/models/shopping-cart";
@@ -35,15 +36,29 @@ export default function Product() {
           }
           titleCenter="Summary Order"
         />
-        <div className="grid gap-3 w-full">
-          {shoppingCartProduct.map((product: ShoppingCart) => (
-            <CardCart
-              product={product}
-              key={product.id}
-              callbackRemoveShoppingCart={handleRemoveShoppingCart}
-            />
-          ))}
-        </div>
+
+        {shoppingCartProduct.length ? (
+          <>
+            <div className="grid gap-3 w-full">
+              {shoppingCartProduct.map((product: ShoppingCart) => (
+                <CardCart
+                  product={product}
+                  key={product.id}
+                  callbackRemoveShoppingCart={handleRemoveShoppingCart}
+                />
+              ))}
+            </div>
+          </>
+        ) : (
+          <IsEmptyList
+            title="You have selected products in the cart"
+            text="Go to the home section and add products to your cart"
+          >
+            <Link href={"/"} className="btn btn-primary">
+              See products
+            </Link>
+          </IsEmptyList>
+        )}
       </Container>
       <div className="sticky bottom-0 left-0 right-0 ">
         <div className="flex w-full justify-center bg-base-200 p-2  shadow ">

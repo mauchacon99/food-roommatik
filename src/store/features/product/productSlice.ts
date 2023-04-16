@@ -40,9 +40,10 @@ export const productSlicer = createSlice({
      */
     setCategorySelected: (
       state: ProductState,
-      action: PayloadAction<number>
+      action: PayloadAction<number | null>
     ) => {
-      state.categorySelected = action.payload;
+      state.categorySelected.old = state.categorySelected.new;
+      state.categorySelected.new = action.payload;
     },
     /**
      * Decrement counter.
