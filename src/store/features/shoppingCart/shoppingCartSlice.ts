@@ -35,7 +35,9 @@ export const shoppingCartSlice = createSlice({
     ) => {
       state.shoppingCartProduct.map((product) =>
         product.id === action.payload
-          ? { ...product, quantity: product.quantity++ }
+          ? product.quantity
+            ? { ...product, quantity: product.quantity++ }
+            : product
           : product
       );
     },
@@ -51,7 +53,9 @@ export const shoppingCartSlice = createSlice({
     ) => {
       state.shoppingCartProduct.map((product) =>
         product.id === action.payload
-          ? { ...product, quantity: product.quantity-- }
+          ? product.quantity
+            ? { ...product, quantity: product.quantity-- }
+            : product
           : product
       );
     },
@@ -107,7 +111,7 @@ export const fullPurchaseAmountSelector = (state: AppState) => {
   let totalAmount = 0;
   state.stateShoppingCart.shoppingCartProduct.forEach(
     (product: ShoppingCart) => {
-      totalAmount += product.price * product.quantity;
+      if (product.quantity) totalAmount += product.price * product.quantity;
     }
   );
   return totalAmount;

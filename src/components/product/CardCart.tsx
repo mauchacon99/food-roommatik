@@ -52,13 +52,13 @@ export default function CardCart({
           <div className="flex  row-start-4 items-start mb-3 pb-3 ">
             <h4 className="pt-2  text-sm font-semibold w-1/2">
               {" "}
-              $ {product.price * product.quantity}{" "}
+              $ {product?.quantity ? product.price * product.quantity : ""}{" "}
             </h4>
             <div className="flex items-center">
               {/* eslint-disable-next-line max-len */}
               <button
                 className="hover:bg-primary text-neutral-content bg-neutral rounded-l-full hover:text-primary-content lg:h-8 lg:w-12 h-8  w-9 text-2xl text-bold text-center font-bold"
-                disabled={product.quantity < 2}
+                disabled={product.quantity ? product.quantity < 2 : false}
                 onClickCapture={() =>
                   dispatch(decrementProductToShoppingCart(product.id))
                 }

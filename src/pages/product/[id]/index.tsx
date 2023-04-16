@@ -35,7 +35,9 @@ export default function Product({ product }: { product: ProductWooCommerce }) {
   });
 
   const getAmountTotalOrder = (): number => {
-    return shoppingCart.price * shoppingCart.quantity;
+    return shoppingCart.quantity
+      ? shoppingCart.price * shoppingCart.quantity
+      : 0;
   };
 
   const setValueShoppingCart = ({
@@ -48,7 +50,7 @@ export default function Product({ product }: { product: ProductWooCommerce }) {
     setShoppingCart(shopping);
   };
 
-  const handleQuantityShoppingCart = (quantity: number): void => {
+  const handleQuantityShoppingCart = (quantity: number | undefined): void => {
     const shopping: ShoppingCart = {
       quantity,
       ...shoppingCart,
@@ -57,11 +59,12 @@ export default function Product({ product }: { product: ProductWooCommerce }) {
   };
 
   const incrementQuantity = (): void => {
-    handleQuantityShoppingCart(shoppingCart.quantity++);
+    if (shoppingCart?.quantity)
+      handleQuantityShoppingCart(shoppingCart.quantity++);
   };
 
   const decrementQuantity = (): void => {
-    if (shoppingCart.quantity > 1)
+    if (shoppingCart?.quantity && shoppingCart.quantity > 1)
       handleQuantityShoppingCart(shoppingCart.quantity--);
   };
 
