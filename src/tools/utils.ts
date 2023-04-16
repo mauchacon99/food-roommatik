@@ -8,7 +8,8 @@ export class Utils {
    * @param str This is value transform.
    * @returns Value transform in lowercase.
    */
-  formatTextToLowercase = (str: string): string => `${str.charAt(0).toUpperCase()}${str.slice(1).toLocaleLowerCase()}`;
+  formatTextToLowercase = (str: string): string =>
+    `${str.charAt(0).toUpperCase()}${str.slice(1).toLocaleLowerCase()}`;
 
   /**
    * Text to crop.

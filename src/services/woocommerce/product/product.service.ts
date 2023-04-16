@@ -10,7 +10,7 @@ export class ProductService extends WooCommerce {
    *
    * @param query Query in end-point.
    */
-  async getAll(query : object ={}) {
+  async getAll(query: object = {}) {
     try {
       const { data } = await this.api().get(path, {
         _fields: 'name,slug,description,price,images,id',

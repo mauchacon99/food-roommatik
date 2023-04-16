@@ -3,7 +3,7 @@ import { ProductCategoryWooCommerce } from "@/models/woocommerce/product-categor
 interface IProps {
   categorySelected: number | null;
   categories: ProductCategoryWooCommerce[];
-  setSelectedCategory: (_id: number | null ) => void;
+  setSelectedCategory: (_id: number | null) => void;
 }
 
 export default function Category({

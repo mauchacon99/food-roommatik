@@ -7,34 +7,21 @@
   ],
   "overrides": [
     {
-      "files": [
-        "*.tsx"
-      ],
+      "files": ["*.tsx"],
       "rules": {
         "jsdoc/require-jsdoc": "off",
         "jsdoc/require-param": "off",
         "@typescript-eslint/naming-convention": [
           "off",
           {
-            "selector": [
-              "enumMember",
-              "interface"
-            ],
-            "format": [
-              "PascalCase"
-            ]
+            "selector": ["enumMember", "interface"],
+            "format": ["PascalCase"]
           },
           {
-            "selector": [
-              "variable",
-              "function",
-              "classMethod"
-            ],
+            "selector": ["variable", "function", "classMethod"],
             "leadingUnderscore": "allow",
             "trailingUnderscore": "allow",
-            "format": [
-              "camelCase"
-            ]
+            "format": ["camelCase"]
           }
         ]
       }
@@ -42,6 +29,12 @@
   ],
   "rules": {
     "@next/next/no-img-element": "off",
+    "max-len": [
+      "off",
+      {
+        "ignoreStrings": true
+      }
+    ],
     "no-unused-vars": [
       "error",
       {
@@ -61,10 +54,7 @@
         "ignorePackages": true
       }
     ],
-    "eqeqeq": [
-      "error",
-      "always"
-    ]
+    "eqeqeq": ["error", "always"]
   },
   "globals": {
     "React": true,
