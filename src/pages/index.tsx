@@ -16,13 +16,16 @@ import {
 } from "@/store/features/product/productSlice";
 import { ProductCategoryWooCommerce } from "@/models/woocommerce/product-category";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import DropdownCart from "@/components/common/DropdownCart";
 import SkeletonCardProduct from "@/components/common/Skeleton/SkeletonCardProduct";
 import IsEmptyList from "@/components/common/IsEmptyList";
+import CardSidebar from "@/components/common/CardSidebar";
+import IconCart from "@/components/common/Icons/IconCart";
+import { openCartSidebar } from "@/store/features/common/commonSlice";
 
 export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
   const productCategory = await categoryService.getAll();
-
+  const data = await productService.login();
+  console.log(data, "getServerSideProps");
   return {
     props: { productCategory },
   };
@@ -34,9 +37,9 @@ export default function Home({
 }) {
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState<boolean>(false);
-  const { categorySelected, products } = useAppSelector(
-    (state) => state.stateProducts
-  );
+  const {
+    stateProducts: { categorySelected, products },
+  } = useAppSelector((state) => state);
   const handleSelectedCategory = (id: number | null) => {
     dispatch(setCategorySelected(id));
   };
@@ -63,49 +66,58 @@ export default function Home({
 
   return (
     <>
-      <Container>
-        <Navbar
-          iconLeft={<IconThreeLines />}
-          iconRight={<DropdownCart />}
-          iconRightWithButton={false}
-        />{" "}
-        <Hero />
-        <Category
-          categorySelected={categorySelected.new}
-          categories={productCategory}
-          setSelectedCategory={handleSelectedCategory}
-        />
-        {!loading ? (
-          products?.length ? (
+      <CardSidebar>
+        <Container>
+          <Navbar
+            iconLeft={<IconThreeLines />}
+            iconRight={
+              <button
+                className="btn gap-2"
+                onClick={() => dispatch(openCartSidebar())}
+              >
+                <IconCart />
+              </button>
+            }
+            iconRightWithButton={false}
+          />{" "}
+          <Hero />
+          <Category
+            categorySelected={categorySelected.new}
+            categories={productCategory}
+            setSelectedCategory={handleSelectedCategory}
+          />
+          {!loading ? (
+            products?.length ? (
+              <ContainerProducts>
+                {products.map((product: ProductWooCommerce) => (
+                  <CardProduct product={product} key={product.id} />
+                ))}
+              </ContainerProducts>
+            ) : (
+              <>
+                <IsEmptyList
+                  title="No products found"
+                  text="There are no products in this category"
+                >
+                  <button
+                    className="btn btn-primary "
+                    onClick={() => dispatch(setCategorySelected(null))}
+                  >
+                    All Categories
+                  </button>
+                </IsEmptyList>
+              </>
+            )
+          ) : (
             <ContainerProducts>
-              {products.map((product: ProductWooCommerce) => (
-                <CardProduct product={product} key={product.id} />
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((key) => (
+                <SkeletonCardProduct key={key} />
               ))}
             </ContainerProducts>
-          ) : (
-            <>
-              <IsEmptyList
-                title="No products found"
-                text="There are no products in this category"
-              >
-                <button
-                  className="btn btn-primary "
-                  onClick={() => dispatch(setCategorySelected(null))}
-                >
-                  All Categories
-                </button>
-              </IsEmptyList>
-            </>
-          )
-        ) : (
-          <ContainerProducts>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((key) => (
-              <SkeletonCardProduct key={key} />
-            ))}
-          </ContainerProducts>
-        )}
-      </Container>
-      <BottomNavbar />
+          )}
+        </Container>
+        <BottomNavbar />
+      </CardSidebar>
     </>
   );
 }

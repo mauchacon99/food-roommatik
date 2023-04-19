@@ -1,17 +1,6 @@
-import {
-  configureStore,
-  ThunkAction,
-  Action,
-  combineReducers,
-} from '@reduxjs/toolkit';
-import { productSlicer } from './features/product/productSlice';
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
-import { shoppingCartSlice } from './features/shoppingCart/shoppingCartSlice';
-
-const rootReducer = combineReducers({
-  [productSlicer.name]: productSlicer.reducer,
-  [shoppingCartSlice.name]: shoppingCartSlice.reducer,
-});
+import { rootReducer } from './features/rootReducers';
 
 /**
  * Store main.

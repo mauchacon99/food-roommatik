@@ -7,7 +7,7 @@ import { AppState } from '@/store';
 /**
  * Slice of shoppingCart.
  */
-export const shoppingCartSlice = createSlice({
+export const shoppingCartSlicer = createSlice({
   name: 'stateShoppingCart',
   initialState,
   reducers: {
@@ -122,6 +122,6 @@ export const {
   incrementProductToShoppingCart,
   decrementProductToShoppingCart,
   removeProductToShoppingCart,
-} = shoppingCartSlice.actions;
+} = shoppingCartSlicer.actions;
 
-export default shoppingCartSlice.reducer;
+export default shoppingCartSlicer.reducer;

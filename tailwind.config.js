@@ -33,6 +33,6 @@ module.exports = {
       "coffee",
       "winter",
     ],
-    darkTheme: "lemonade",
+    darkTheme: "winter",
   },
 };

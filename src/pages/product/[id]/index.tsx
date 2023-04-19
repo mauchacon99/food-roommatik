@@ -12,6 +12,8 @@ import { useAppDispatch } from "@/store/hooks";
 import { addProductToShoppingCart } from "@/store/features/shoppingCart/shoppingCartSlice";
 import ReactHtmlParser from "react-html-parser";
 import { useRouter } from "next/navigation";
+import IconCart from "@/components/common/Icons/IconCart";
+import { openCartSidebar } from "@/store/features/common/commonSlice";
 
 export async function getServerSideProps(context: { params: { id: number } }) {
   const product = await productService.findById(context.params.id);
@@ -77,7 +79,13 @@ export default function Product({ product }: { product: ProductWooCommerce }) {
     <>
       <Container>
         <Navbar
-          iconRight={<DropdownCart />}
+          iconRight={
+            <button
+              onClick={() => dispatch(openCartSidebar())}
+            >
+              <IconCart />
+            </button>
+          }
           iconRightWithButton={false}
           iconLeft={<IconBackArrow classes="h-12 h-12" />}
           titleCenter="Details Product"

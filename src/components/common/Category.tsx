@@ -11,58 +11,50 @@ export default function Category({
   setSelectedCategory,
   categorySelected,
 }: IProps) {
-  const getGridColumnByBreakpoint = (split: number): number =>
-    Math.round(categories.length / split);
-
   const colorIsCategorySelected = "bg-accent border-accent";
   const colorIsNotSelected = "bg-neutral border-neutral";
 
   return (
-    <div
-      className={`grid grid-cols-${getGridColumnByBreakpoint(
-        2
-      )} lg:grid-cols-${getGridColumnByBreakpoint(
-        2
-      )} gap-2  justify-center items-center space-x-1 py-3 p-2`}
-    >
-      <button
-        onClick={() => setSelectedCategory(null)}
-        className={`flex justify-center items-center min-w-12 h-12 rounded-full p-2 w-full border-1
+    <div className="overflow-x-auto my-3">
+      <div className="flex space-x-3 mb-2">
+        <button
+          onClick={() => setSelectedCategory(null)}
+          className={`flex justify-center items-center min-w-12 h-12 rounded-full p-2 w-full border-1
             ${
               categorySelected === null
                 ? colorIsCategorySelected
                 : colorIsNotSelected
             }`}
-      >
-        <div className="flex border-1">
-          <svg
-            fill="#000000"
-            className="inline-block w-7 h-7 stroke-current fill-accent-content"
-            version="1.1"
-            id="Capa_1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            viewBox="0 0 229.202 229.202"
-            xmlSpace="preserve"
-          >
-            <g>
-              <path
-                d="M56.334,132.905c1.076,0.538,2.221,0.794,3.348,0.794c2.752,0,5.4-1.52,6.715-4.148L91.33,79.687
+        >
+          <div className="flex border-1">
+            <svg
+              fill="#000000"
+              className="inline-block w-7 h-7 stroke-current fill-accent-content"
+              version="1.1"
+              id="Capa_1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+              viewBox="0 0 229.202 229.202"
+              xmlSpace="preserve"
+            >
+              <g>
+                <path
+                  d="M56.334,132.905c1.076,0.538,2.221,0.794,3.348,0.794c2.752,0,5.4-1.52,6.715-4.148L91.33,79.687
 		c1.852-3.706,0.35-8.211-3.354-10.063c-3.705-1.851-8.211-0.352-10.063,3.353L52.98,122.842
 		C51.127,126.547,52.629,131.052,56.334,132.905z"
-              />
-              <path
-                d="M90.334,132.905c1.076,0.538,2.221,0.794,3.348,0.794c2.752,0,5.4-1.52,6.715-4.148l24.934-49.864
+                />
+                <path
+                  d="M90.334,132.905c1.076,0.538,2.221,0.794,3.348,0.794c2.752,0,5.4-1.52,6.715-4.148l24.934-49.864
 		c1.852-3.706,0.35-8.211-3.354-10.063c-3.709-1.851-8.211-0.352-10.063,3.353L86.98,122.842
 		C85.127,126.547,86.629,131.052,90.334,132.905z"
-              />
-              <path
-                d="M124.334,132.905c1.076,0.538,2.221,0.794,3.348,0.794c2.752,0,5.4-1.52,6.715-4.148l24.934-49.864
+                />
+                <path
+                  d="M124.334,132.905c1.076,0.538,2.221,0.794,3.348,0.794c2.752,0,5.4-1.52,6.715-4.148l24.934-49.864
 		c1.852-3.706,0.35-8.211-3.354-10.063c-3.707-1.851-8.211-0.352-10.063,3.353l-24.934,49.865
 		C119.127,126.547,120.629,131.052,124.334,132.905z"
-              />
-              <path
-                d="M229.199,150.922c0-0.112,0-0.225,0-0.336l-0.041-20.493c0.01-0.221,0.006-0.44,0.012-0.66
+                />
+                <path
+                  d="M229.199,150.922c0-0.112,0-0.225,0-0.336l-0.041-20.493c0.01-0.221,0.006-0.44,0.012-0.66
 		c0.016-0.539,0.023-1.078,0.02-1.617c-0.004-0.395-0.014-0.791-0.027-1.19c-0.006-0.158-0.004-0.314-0.012-0.472
 		c-0.004-0.182-0.014-0.362-0.029-0.541c-0.006-0.084-0.016-0.168-0.021-0.252c-0.035-0.546-0.082-1.09-0.135-1.631
 		c-0.031-0.295-0.063-0.59-0.1-0.884c-0.057-0.485-0.121-0.97-0.195-1.452c-0.064-0.416-0.139-0.83-0.215-1.244
@@ -108,58 +100,58 @@ export default function Category({
 		c8.727-5.451,18.75-8.333,28.986-8.333c8.777,0,17.527,2.127,25.328,6.155c2.863,1.722,10.904,5.377,14.225,6.143
 		c3.258,0.753,6.592,1.135,9.912,1.135h0.004c9.828-0.001,18.975-3.215,26.352-8.757
 		C207.164,173.578,196.99,180.417,185.359,180.417z"
-              />
-            </g>
-          </svg>
-        </div>
-        <label
-          htmlFor="title"
-          className="text-accent-content text-center p-1 font-medium"
-        >
-          {" "}
-          {"All"}
-        </label>
-      </button>
-      {categories.map((category: ProductCategoryWooCommerce) => (
-        <div key={category.id}>
-          <button
-            onClick={() => setSelectedCategory(category.id)}
-            className={`flex justify-center items-center min-w-12 h-12 rounded-full p-2 w-full border-1
+                />
+              </g>
+            </svg>
+          </div>
+          <label
+            htmlFor="title"
+            className="text-accent-content text-center p-1 font-medium"
+          >
+            {" "}
+            {"All"}
+          </label>
+        </button>
+        {categories.map((category: ProductCategoryWooCommerce) => (
+          <div key={category.id}>
+            <button
+              onClick={() => setSelectedCategory(category.id)}
+              className={`flex justify-center items-center min-w-12 h-12 rounded-full p-2 w-full border-1
             ${
               categorySelected === category.id
                 ? colorIsCategorySelected
                 : colorIsNotSelected
             }`}
-          >
-            <div className="flex border-1">
-              <svg
-                fill="#000000"
-                className="inline-block w-7 h-7 stroke-current fill-accent-content"
-                version="1.1"
-                id="Capa_1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlnsXlink="http://www.w3.org/1999/xlink"
-                viewBox="0 0 229.202 229.202"
-                xmlSpace="preserve"
-              >
-                <g>
-                  <path
-                    d="M56.334,132.905c1.076,0.538,2.221,0.794,3.348,0.794c2.752,0,5.4-1.52,6.715-4.148L91.33,79.687
+            >
+              <div className="flex border-1">
+                <svg
+                  fill="#000000"
+                  className="inline-block w-7 h-7 stroke-current fill-accent-content"
+                  version="1.1"
+                  id="Capa_1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlnsXlink="http://www.w3.org/1999/xlink"
+                  viewBox="0 0 229.202 229.202"
+                  xmlSpace="preserve"
+                >
+                  <g>
+                    <path
+                      d="M56.334,132.905c1.076,0.538,2.221,0.794,3.348,0.794c2.752,0,5.4-1.52,6.715-4.148L91.33,79.687
 		c1.852-3.706,0.35-8.211-3.354-10.063c-3.705-1.851-8.211-0.352-10.063,3.353L52.98,122.842
 		C51.127,126.547,52.629,131.052,56.334,132.905z"
-                  />
-                  <path
-                    d="M90.334,132.905c1.076,0.538,2.221,0.794,3.348,0.794c2.752,0,5.4-1.52,6.715-4.148l24.934-49.864
+                    />
+                    <path
+                      d="M90.334,132.905c1.076,0.538,2.221,0.794,3.348,0.794c2.752,0,5.4-1.52,6.715-4.148l24.934-49.864
 		c1.852-3.706,0.35-8.211-3.354-10.063c-3.709-1.851-8.211-0.352-10.063,3.353L86.98,122.842
 		C85.127,126.547,86.629,131.052,90.334,132.905z"
-                  />
-                  <path
-                    d="M124.334,132.905c1.076,0.538,2.221,0.794,3.348,0.794c2.752,0,5.4-1.52,6.715-4.148l24.934-49.864
+                    />
+                    <path
+                      d="M124.334,132.905c1.076,0.538,2.221,0.794,3.348,0.794c2.752,0,5.4-1.52,6.715-4.148l24.934-49.864
 		c1.852-3.706,0.35-8.211-3.354-10.063c-3.707-1.851-8.211-0.352-10.063,3.353l-24.934,49.865
 		C119.127,126.547,120.629,131.052,124.334,132.905z"
-                  />
-                  <path
-                    d="M229.199,150.922c0-0.112,0-0.225,0-0.336l-0.041-20.493c0.01-0.221,0.006-0.44,0.012-0.66
+                    />
+                    <path
+                      d="M229.199,150.922c0-0.112,0-0.225,0-0.336l-0.041-20.493c0.01-0.221,0.006-0.44,0.012-0.66
 		c0.016-0.539,0.023-1.078,0.02-1.617c-0.004-0.395-0.014-0.791-0.027-1.19c-0.006-0.158-0.004-0.314-0.012-0.472
 		c-0.004-0.182-0.014-0.362-0.029-0.541c-0.006-0.084-0.016-0.168-0.021-0.252c-0.035-0.546-0.082-1.09-0.135-1.631
 		c-0.031-0.295-0.063-0.59-0.1-0.884c-0.057-0.485-0.121-0.97-0.195-1.452c-0.064-0.416-0.139-0.83-0.215-1.244
@@ -205,20 +197,21 @@ export default function Category({
 		c8.727-5.451,18.75-8.333,28.986-8.333c8.777,0,17.527,2.127,25.328,6.155c2.863,1.722,10.904,5.377,14.225,6.143
 		c3.258,0.753,6.592,1.135,9.912,1.135h0.004c9.828-0.001,18.975-3.215,26.352-8.757
 		C207.164,173.578,196.99,180.417,185.359,180.417z"
-                  />
-                </g>
-              </svg>
-            </div>
-            <label
-              htmlFor="title"
-              className="text-accent-content text-center p-1 font-medium"
-            >
-              {" "}
-              {category.name}{" "}
-            </label>
-          </button>
-        </div>
-      ))}
+                    />
+                  </g>
+                </svg>
+              </div>
+              <label
+                htmlFor="title"
+                className="text-accent-content text-center p-1 font-medium"
+              >
+                {" "}
+                {category.name}{" "}
+              </label>
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
