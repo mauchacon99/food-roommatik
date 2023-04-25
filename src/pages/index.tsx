@@ -24,8 +24,6 @@ import { openCartSidebar } from "@/store/features/common/commonSlice";
 
 export const getServerSideProps = wrapper.getServerSideProps(() => async () => {
   const productCategory = await categoryService.getAll();
-  const data = await productService.login();
-  console.log(data, "getServerSideProps");
   return {
     props: { productCategory },
   };
